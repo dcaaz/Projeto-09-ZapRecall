@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import certo from "./Imagens/icone_certo.png"
-import erro from "./Imagens/icone_erro.png"
-import interrogacao from "./Imagens/icone_quase.png"
 import festa from "./Imagens/party.png"
 import play from "./Imagens/seta_play.png"
 import triste from "./Imagens/sad.png"
 import setaVirar from "./Imagens/seta_virar.png"
+import Botao from "./Botao";
 
-
-
-export default function FlashCard({ pergunta, resultado, indice, contador, setContador }) {
-
-    const conteudoBotoes = ["Não lembrei", "Quase não lembrei", "Zap!"];
+export default function FlashCard({ pergunta, resultado, indice, incrementaContador }) {
 
     const inicial =
         <PerguntaFrente key={indice} onClick={verPerguntas}>
@@ -21,6 +15,8 @@ export default function FlashCard({ pergunta, resultado, indice, contador, setCo
                 <img src={play} />
             </button>
         </PerguntaFrente>
+
+    const [conteudo, setConteudo] = React.useState(inicial)
 
     const desvirada =
         <PerguntaDesvirada key={indice}>
@@ -33,14 +29,13 @@ export default function FlashCard({ pergunta, resultado, indice, contador, setCo
     const respostaPergunta =
         <PerguntaDesvirada key={indice}>
             <p>{resultado}</p>
-            <Botoes>
-                {conteudoBotoes.map((c, indice) =>
-                    <button key={indice} onClick={() => lembrarBotoes(c)}>{c}</button>
-                )}
-            </Botoes>
+            <Botao
+                incrementaContador={incrementaContador}
+                setConteudo={setConteudo}
+                indice={indice}
+            />
         </PerguntaDesvirada>
 
-    const [conteudo, setConteudo] = React.useState(inicial)
 
     function verPerguntas() {
         setConteudo(desvirada);
@@ -48,16 +43,6 @@ export default function FlashCard({ pergunta, resultado, indice, contador, setCo
 
     function respostaPerguntas() {
         setConteudo(respostaPergunta);
-    }
-
-    function lembrarBotoes(c) {
-        if (c === "Não lembrei") {
-            setContador(contador + 1);
-        } if (c === "Quase não lembrei") {
-            setContador(contador + 1);
-        } else {
-            setContador(contador + 1);
-        }
     }
 
     return (
@@ -86,7 +71,7 @@ const PerguntaFrente = styled.div`
     line-height: 19px;
     color: #333333;
     }
-    button {
+        button {
     width: 90px;
     font-family: 'Recursive';
     font-style: normal;
@@ -123,33 +108,9 @@ const PerguntaDesvirada = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    img{
+        img{
     position: absolute;
     bottom: 10px;
     right: 10px;
-    }
-`
-const Botoes = styled.div`
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    margin: 20px;
-    button {
-    width: 90px;
-    font-family: 'Recursive';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #FFFFFF;
-    background: blue;
-    border-radius: 5px;
-    border: 1px solid blue;
-    padding:5px;
-    margin-left: 7px;
     }
 `

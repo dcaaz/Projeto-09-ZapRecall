@@ -23,7 +23,11 @@ export default function App() {
         { pergunta: "Usamos estado (state) para __?", resultado: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" },
     ]
 
-    const [contador, setContador] = React.useState(0)
+    let [contador, setContador] = React.useState(0);
+
+    function incrementaContador(){
+        setContador(contador += 1)    
+    }
 
     return (
         //JSX
@@ -35,7 +39,11 @@ export default function App() {
             </Topo>
             <>
                 {listaPerguntasDesviradas.map((elemento, indice) =>
-                    <FlashCard key={indice} pergunta={elemento.pergunta} resultado={elemento.resultado} indice={indice} contador={contador} setContador={setContador}/>
+                    <FlashCard key={indice}
+                        pergunta={elemento.pergunta}
+                        resultado={elemento.resultado}
+                        indice={indice}
+                        incrementaContador={incrementaContador} />
                 )}
             </>
             <Rodape>
