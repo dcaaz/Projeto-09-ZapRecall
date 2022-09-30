@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "./Imagens/logo.png"
-import certo from "./Imagens/icone_certo.png"
-import erro from "./Imagens/icone_erro.png"
-import interrogacao from "./Imagens/icone_quase.png"
-import festa from "./Imagens/party.png"
-import triste from "./Imagens/sad.png"
+import logo from "./Imagens/logo.png";
 import GlobalStyle from "./GlobalStyled";
 import FlashCard from "./FlashCard";
+import certo from "./Imagens/icone_certo.png";
+import erro from "./Imagens/icone_erro.png";
+import interrogacao from "./Imagens/icone_quase.png";
 
 export default function App() {
     //funções
@@ -23,11 +21,14 @@ export default function App() {
         { pergunta: "Usamos estado (state) para __?", resultado: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" },
     ]
 
-    let [contador, setContador] = React.useState(0);
+    const [contador, setContador] = React.useState(0);
+    const [imagem, setImagem] = useState();
 
     function incrementaContador(){
-        setContador(contador += 1)    
+       setContador(prev => prev + 1)    
     }
+
+    console.log("imagem", imagem)
 
     return (
         //JSX
@@ -39,11 +40,18 @@ export default function App() {
             </Topo>
             <>
                 {listaPerguntasDesviradas.map((elemento, indice) =>
-                    <FlashCard key={indice}
+                    <FlashCard 
+                        key={indice}
                         pergunta={elemento.pergunta}
                         resultado={elemento.resultado}
                         indice={indice}
-                        incrementaContador={incrementaContador} />
+                        incrementaContador={incrementaContador} 
+                        imagem={imagem}
+                        setImagem={setImagem}
+                        certo={certo}
+                        erro={erro}
+                        interrogacao={interrogacao}
+                        />
                 )}
             </>
             <Rodape>

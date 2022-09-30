@@ -1,32 +1,37 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import certo from "./Imagens/icone_certo.png"
-import erro from "./Imagens/icone_erro.png"
-import interrogacao from "./Imagens/icone_quase.png"
+//import certo from "./Imagens/icone_certo.png";
+//import erro from "./Imagens/icone_erro.png";
+//import interrogacao from "./Imagens/icone_quase.png";
 
-export default function Botao({ incrementaContador, setConteudo, indice }) {
+export default function Botao({ incrementaContador, setConteudo, indice, imagem, setImagem, certo, erro, interrogacao }) {
 
     const conteudoBotoes = ["Não lembrei", "Quase não lembrei", "Zap!"];
+
+    function lembrarBotoes(c) {
+
+        if (c === "Não lembrei") {
+            alert("1");
+            setImagem(certo);
+        } else if (c === "Quase não lembrei") {
+            alert("2");
+            setImagem(erro);
+        } else {
+            alert("3");
+            setImagem(interrogacao);
+        }
+        setConteudo(inicialRetorno);
+        incrementaContador();
+    }
 
     const inicialRetorno =
         <PerguntaFrenteRetorno>
             <p>Pergunta {indice + 1}</p>
+            {console.log("imagem", imagem)}
             <button>
-                <img src={certo} />
+                <img src={imagem} alt="imagem certo errado interrogação"/>
             </button>
         </PerguntaFrenteRetorno>
 
-    function lembrarBotoes(c) {
-        setConteudo(inicialRetorno);
-        incrementaContador();
-        if (c === "Não lembrei") {
-
-        } if (c === "Quase não lembrei") {
-
-        } else {
-
-        }
-    }
 
     return (
         <Botoes>
@@ -42,7 +47,7 @@ const Botoes = styled.div`
     width: 80%;
     justify-content: space-between;
     margin: 20px;
-    button {
+        button {
     width: 90px;
     font-family: 'Recursive';
     font-style: normal;
@@ -80,8 +85,9 @@ const PerguntaFrenteRetorno = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #333333;
+    text-decoration-line: line-through;
     }
-    button {
+     button {
     width: 90px;
     font-family: 'Recursive';
     font-style: normal;

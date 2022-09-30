@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import festa from "./Imagens/party.png"
-import play from "./Imagens/seta_play.png"
-import triste from "./Imagens/sad.png"
-import setaVirar from "./Imagens/seta_virar.png"
+import play from "./Imagens/seta_play.png";
+import setaVirar from "./Imagens/seta_virar.png";
 import Botao from "./Botao";
 
-export default function FlashCard({ pergunta, resultado, indice, incrementaContador }) {
+export default function FlashCard({ pergunta, resultado, indice, incrementaContador, imagem, setImagem, certo, erro, interrogacao }) {
 
     const inicial =
         <PerguntaFrente key={indice} onClick={verPerguntas}>
@@ -21,9 +19,9 @@ export default function FlashCard({ pergunta, resultado, indice, incrementaConta
     const desvirada =
         <PerguntaDesvirada key={indice}>
             <p>{pergunta}</p>
-            <button onClick={respostaPerguntas}>
+            <div onClick={respostaPerguntas}>
                 <img src={setaVirar} />
-            </button>
+            </div>
         </PerguntaDesvirada>
 
     const respostaPergunta =
@@ -33,6 +31,11 @@ export default function FlashCard({ pergunta, resultado, indice, incrementaConta
                 incrementaContador={incrementaContador}
                 setConteudo={setConteudo}
                 indice={indice}
+                imagem={imagem}
+                setImagem={setImagem}
+                certo={certo}
+                erro={erro}
+                interrogacao={interrogacao}
             />
         </PerguntaDesvirada>
 
@@ -44,6 +47,8 @@ export default function FlashCard({ pergunta, resultado, indice, incrementaConta
     function respostaPerguntas() {
         setConteudo(respostaPergunta);
     }
+
+    console.log("conteudo", conteudo)
 
     return (
         <>
