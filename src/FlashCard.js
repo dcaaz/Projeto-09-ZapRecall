@@ -7,9 +7,13 @@ import festa from "./Imagens/party.png"
 import play from "./Imagens/seta_play.png"
 import triste from "./Imagens/sad.png"
 import setaVirar from "./Imagens/seta_virar.png"
-import GlobalStyle from "./GlobalStyled";
 
-export default function FlashCard({ pergunta, resultado, indice }) {
+
+
+export default function FlashCard({ pergunta, resultado, indice, contador, setContador }) {
+
+    const conteudoBotoes = ["Não lembrei", "Quase não lembrei", "Zap!"];
+
     const inicial =
         <PerguntaFrente key={indice} onClick={verPerguntas}>
             <p>Pergunta {indice + 1}</p>
@@ -18,7 +22,7 @@ export default function FlashCard({ pergunta, resultado, indice }) {
             </button>
         </PerguntaFrente>
 
-    const virada =
+    const desvirada =
         <PerguntaDesvirada key={indice}>
             <p>{pergunta}</p>
             <button onClick={respostaPerguntas}>
@@ -29,21 +33,36 @@ export default function FlashCard({ pergunta, resultado, indice }) {
     const respostaPergunta =
         <PerguntaDesvirada key={indice}>
             <p>{resultado}</p>
+            <Botoes>
+                {conteudoBotoes.map((c, indice) =>
+                    <button key={indice} onClick={() => lembrarBotoes(c)}>{c}</button>
+                )}
+            </Botoes>
         </PerguntaDesvirada>
 
     const [conteudo, setConteudo] = React.useState(inicial)
 
     function verPerguntas() {
-        setConteudo(virada);
+        setConteudo(desvirada);
     }
 
     function respostaPerguntas() {
         setConteudo(respostaPergunta);
     }
 
+    function lembrarBotoes(c) {
+        if (c === "Não lembrei") {
+            setContador(contador + 1);
+        } if (c === "Quase não lembrei") {
+            setContador(contador + 1);
+        } else {
+            setContador(contador + 1);
+        }
+    }
+
     return (
         <>
-        {conteudo}
+            {conteudo}
         </>
     )
 }
@@ -108,5 +127,29 @@ const PerguntaDesvirada = styled.div`
     position: absolute;
     bottom: 10px;
     right: 10px;
+    }
+`
+const Botoes = styled.div`
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin: 20px;
+    button {
+    width: 90px;
+    font-family: 'Recursive';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFFFFF;
+    background: blue;
+    border-radius: 5px;
+    border: 1px solid blue;
+    padding:5px;
+    margin-left: 7px;
     }
 `

@@ -5,9 +5,7 @@ import certo from "./Imagens/icone_certo.png"
 import erro from "./Imagens/icone_erro.png"
 import interrogacao from "./Imagens/icone_quase.png"
 import festa from "./Imagens/party.png"
-import play from "./Imagens/seta_play.png"
 import triste from "./Imagens/sad.png"
-import setaVirar from "./Imagens/seta_virar.png"
 import GlobalStyle from "./GlobalStyled";
 import FlashCard from "./FlashCard";
 
@@ -17,9 +15,15 @@ export default function App() {
     const listaPerguntasDesviradas = [
         { pergunta: "O que é JSX?", resultado: "Uma extensão de linguagem do JavaScript" },
         { pergunta: "O React é __?", resultado: "Uma biblioteca JavaScript para construção de interfaces" },
-        { pergunta: "Usamos props para __?", resultado: "Passar diferentes informações para componentes" }
+        { pergunta: "Componentes devem iniciar com __", resultado: "Letra maiúscula" },
+        { pergunta: "Podemos colocar __ dentro do JSX", resultado: "Expressões" },
+        { pergunta: "O ReactDOM nos ajuda __?", resultado: "Interagindo com a DOM para colocar componentes React na mesma" },
+        { pergunta: "Usamos o npm para __?", resultado: "Gerenciar os pacotes necessários e suas dependências" },
+        { pergunta: "Usamos props para __?", resultado: "Passar diferentes informações para componentes" },
+        { pergunta: "Usamos estado (state) para __?", resultado: "Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente" },
     ]
 
+    const [contador, setContador] = React.useState(0)
 
     return (
         //JSX
@@ -31,16 +35,11 @@ export default function App() {
             </Topo>
             <>
                 {listaPerguntasDesviradas.map((elemento, indice) =>
-                    <FlashCard key={indice} pergunta={elemento.pergunta} resultado={elemento.resultado} indice={indice}/>
+                    <FlashCard key={indice} pergunta={elemento.pergunta} resultado={elemento.resultado} indice={indice} contador={contador} setContador={setContador}/>
                 )}
             </>
             <Rodape>
-                <Botoes>
-                    <button>Não lembrei</button>
-                    <button>Quase não lembrei</button>
-                    <button>Zap!</button>
-                </Botoes>
-                <h1>0/4 concluidos</h1>
+                <h1>{contador}/{listaPerguntasDesviradas.length} concluidos</h1>
             </Rodape>
         </All>
     )
@@ -90,27 +89,4 @@ const Rodape = styled.div`
     font-size: 18px;
     color: #333333;
     padding: 10px;
-`
-const Botoes = styled.div`
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    margin: 20px;
-    button {
-    width: 90px;
-    font-family: 'Recursive';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #FFFFFF;
-    background: blue;
-    border-radius: 5px;
-    border: 1px solid blue;
-    padding:5px;
-    }
 `
