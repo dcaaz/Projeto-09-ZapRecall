@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import logo from "./Imagens/logo.png";
 import GlobalStyle from "./GlobalStyled";
 import FlashCard from "./FlashCard";
-import certo from "./Imagens/icone_certo.png";
-import erro from "./Imagens/icone_erro.png";
-import interrogacao from "./Imagens/icone_quase.png";
 
 export default function App() {
     //funções
@@ -22,40 +19,34 @@ export default function App() {
     ]
 
     const [contador, setContador] = React.useState(0);
-    const [imagem, setImagem] = useState();
 
-    function incrementaContador(){
-       setContador(prev => prev + 1)    
+    function incrementaContador() {
+        setContador(prev => prev + 1);
     }
-
-    console.log("imagem", imagem)
 
     return (
         //JSX
         <All>
             <GlobalStyle />
             <Topo>
-                <img src={logo} />
+                <img src={logo} alt="logo" />
                 <h1>ZapRecall</h1>
             </Topo>
             <>
                 {listaPerguntasDesviradas.map((elemento, indice) =>
-                    <FlashCard 
+                    <FlashCard
+                        data-identifier="flashcard"
                         key={indice}
                         pergunta={elemento.pergunta}
                         resultado={elemento.resultado}
                         indice={indice}
-                        incrementaContador={incrementaContador} 
-                        imagem={imagem}
-                        setImagem={setImagem}
-                        certo={certo}
-                        erro={erro}
-                        interrogacao={interrogacao}
-                        />
+                        incrementaContador={incrementaContador}
+                        
+                    />
                 )}
             </>
             <Rodape>
-                <h1>{contador}/{listaPerguntasDesviradas.length} concluidos</h1>
+                <h1 data-identifier="flashcard-counter">{contador}/{listaPerguntasDesviradas.length} concluidos</h1>
             </Rodape>
         </All>
     )

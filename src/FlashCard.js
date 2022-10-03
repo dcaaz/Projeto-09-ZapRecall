@@ -2,40 +2,37 @@ import React from "react";
 import styled from "styled-components";
 import play from "./Imagens/seta_play.png";
 import setaVirar from "./Imagens/seta_virar.png";
-import Botao from "./Botao";
+import Botao from "./Botoes";
 
-export default function FlashCard({ pergunta, resultado, indice, incrementaContador, imagem, setImagem, certo, erro, interrogacao }) {
+export default function FlashCard({ pergunta, resultado, indice, incrementaContador, imagem, setImagem }) {
 
     const inicial =
-        <PerguntaFrente key={indice} onClick={verPerguntas}>
+        <PerguntaFrente data-identifier="flashcard-index-item" key={indice} onClick={verPerguntas}>
             <p>Pergunta {indice + 1}</p>
             <button>
-                <img src={play} />
+                <img src={play} alt="simbolo de play/start" />
             </button>
         </PerguntaFrente>
 
     const [conteudo, setConteudo] = React.useState(inicial)
 
     const desvirada =
-        <PerguntaDesvirada key={indice}>
+        <PerguntaDesvirada data-identifier="flashcard-show-btn" key={indice}>
             <p>{pergunta}</p>
             <div onClick={respostaPerguntas}>
-                <img src={setaVirar} />
+                <img data-identifier="flashcard-turn-btn" src={setaVirar} alt="simbolo de virar" />
             </div>
         </PerguntaDesvirada>
 
     const respostaPergunta =
-        <PerguntaDesvirada key={indice}>
-            <p>{resultado}</p>
+        <PerguntaDesvirada data-identifier="flashcard-question" key={indice}>
+            <p data-identifier="flashcard-answer">{resultado}</p>
             <Botao
                 incrementaContador={incrementaContador}
                 setConteudo={setConteudo}
                 indice={indice}
                 imagem={imagem}
                 setImagem={setImagem}
-                certo={certo}
-                erro={erro}
-                interrogacao={interrogacao}
             />
         </PerguntaDesvirada>
 
@@ -47,8 +44,6 @@ export default function FlashCard({ pergunta, resultado, indice, incrementaConta
     function respostaPerguntas() {
         setConteudo(respostaPergunta);
     }
-
-    console.log("conteudo", conteudo)
 
     return (
         <>
